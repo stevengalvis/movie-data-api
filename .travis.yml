@@ -1,4 +1,11 @@
- language: node_js
- node_js: node
- services:
-     - mongodb
+language: node_js
+node_js: node
+services:
+- mongodb
+deploy:
+  provider: heroku
+  api_key:
+    secure: mOHOw/KJ8GMmhrBMYutGOujvgPToy1ZbzMhEMtrLLkPrhPssbCPyLuQ81lnQnSYvW8bPnZpZREdU3Lroxrxb6y4bk6lXCvoOaQo+kmdWzPMTS43bUjQCzVPVqwXqrcRjBQXNPHI0i9Fqp6uJWTiBwEWxKtp1LOQupjXWIjClSRzrRS1vDwyiR9ld8thoT+xi10dPfZIRg++HCewINg4RrW/yDa+5CwUfBp+M2scnu8xHwURfg/wHEc2gHAqHYc8H+QRXDlF7BJ7fOUR3Ee+eL/cxYC/S7DakT6rceMjG9kxGvN3KqMVJ4ma60Qpc2DUDnG7vSIpz2Via4wbYUKEj9LgakQThhlWlOaZXm7BCAp/SsAfzYA50l7a5fCawDAvgqaIcZmLNkQ8YU0bjTGP+AC5TsE2EKLMxLChtu6BDEe0qCk9LVlZQ80iWs1qpfnZYtu9/dRutUPkz5g4kzTfXIYJ5fq2+7jARc0bYNusB8dgygJIwO38opulzbUz8T0oe8Ars4/P3r/Hjs6Dot68RI4pVBSOehDWZJI8yadRx9SqmyyK7pbzk4GyjzB7R9/Vw1exq757aXdMxz/XM62EzP03YcvTIU6wivB3LNXcenxge1bEA1yDijp66l9YyNUbnwK9t82QbnJxlAxSri9ay0NqT/YRqO/AfNroEphvHc1I=
+  app: mighty-eyrie-13737
+  on:
+    repo: stevengalvis/movie-data-api
