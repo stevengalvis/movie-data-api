@@ -9,7 +9,7 @@ const {router: userRouter} = require('./users');
 const {router: authRouter, basicStrategy, JwtStrategy} = require('/auth');
 
 const PORT = process.env.PORT || 3000;
-const mongoose.Promise = global.Promise;
+mongoose.Promise = global.Promise;
 
 const app = express();
 
