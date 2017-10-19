@@ -115,4 +115,37 @@ router.post("/", jsonParser, (req, res) => {
     });
 });
 
+router.put("/watchlist", (req, res) => {
+  let user;
+  User.findOneAndUpdate({ username: req.user.username }, { $push: { watchList: req.body } }, { new: true })
+    .exec()
+    .then(_user => {
+      user = _user;
+      res.status(201).json(user.apiRepr());
+    })
+    .catch(err => res.status(500).json({ message: "Something went wrong" }));
+});
+
+router.get("/watchlist", (req, res) => {
+  let user;
+  User.findOne({ username: req.user.username })
+    .exec()
+    .then(_user => {
+      user = _user;
+      res.status(201).json(user.apiWatchList());
+    })
+    .catch(err => res.status(500).json({ message: "could not get watch list" }));
+});
+
+router.post("/watchlist", (req, res) => {
+  let user;
+  User.findOneAndUpdate({ username: req.user.username }, { $pull: { watchList: req.body } }, { new: true })
+    .exec()
+    .then(_user => {
+      user = _user;
+      res.status(201).json(user.apiWatchList());
+    })
+    .catch(err => res.status(500).json({ message: "could not delete item" }));
+});
+
 module.exports = { router };

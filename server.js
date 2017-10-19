@@ -1,11 +1,20 @@
 const express = require("express");
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const passport = require('passport');
+const morgan = require('morgan');
 
-const app = express();
+
+const {router: userRouter} = require('./users');
+const {router: authRouter, basicStrategy, JwtStrategy} = require('/auth');
 
 const PORT = process.env.PORT || 3000;
 const mongoose.Promise = global.Promise;
+
+const app = express();
+
+//Logging
+app.use(morgan('common'));
 
 const cors = require("cors");
 const { CLIENT_ORIGIN, DATABASE_URL } = require("./config");
@@ -17,6 +26,13 @@ app.use(
 );
 
 app.use(bodyParser.json());
+
+app.use(passport.initialize());
+passport.use(basicStrategy);
+passport.use(JwtStrategy);
+
+app.use('/api/auth/', authRouter);
+app.use('/api/users/', usersRouter);
 
 app.get("/api/*", (req, res) => {
   res.json({ ok: true });
