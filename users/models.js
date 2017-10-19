@@ -14,7 +14,8 @@ const UserSchema = mongoose.Schema({
     required: true
   },
   firstName: { type: String, default: "" },
-  lastName: { type: String, default: "" }
+  lastName: { type: String, default: "" },
+  watchList: { type: Array, default: [] }
 });
 
 UserSchema.methods.apiRepr = function() {
@@ -22,6 +23,12 @@ UserSchema.methods.apiRepr = function() {
     username: this.username || "",
     firstName: this.firstName || "",
     lastName: this.lastName || ""
+  };
+};
+
+UserSchema.methods.apiWatchList = function() {
+  return {
+    watchList: this.watchList || []
   };
 };
 
