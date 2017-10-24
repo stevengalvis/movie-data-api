@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const passport = require("pasport");
+const passport = require("passport");
 
 const { User } = require("./models");
 

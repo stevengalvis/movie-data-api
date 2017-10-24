@@ -4,10 +4,9 @@ const bodyParser = require("body-parser");
 const passport = require("passport");
 const morgan = require("morgan");
 
-const { router: userRouter } = require("./users");
-const { router: authRouter, basicStrategy, JwtStrategy } = require("/auth");
+const { router: usersRouter } = require("./users");
+const { router: authRouter, basicStrategy, jwtStrategy } = require("./auth/index");
 
-const { PORT, DATABASE_URL } = require("./config");
 mongoose.Promise = global.Promise;
 
 const app = express();
@@ -16,7 +15,7 @@ const app = express();
 app.use(morgan("common"));
 
 const cors = require("cors");
-const { CLIENT_ORIGIN, DATABASE_URL } = require("./config");
+const { CLIENT_ORIGIN, PORT, DATABASE_URL } = require("./config");
 
 app.use(
   cors({
@@ -28,7 +27,7 @@ app.use(bodyParser.json());
 
 app.use(passport.initialize());
 passport.use(basicStrategy);
-passport.use(JwtStrategy);
+passport.use(jwtStrategy);
 
 app.use("/api/auth/", authRouter);
 app.use("/api/users/", usersRouter);
@@ -80,4 +79,4 @@ if (require.main === module) {
   runServer().catch(err => console.error(err));
 }
 
-module.exports = { app, runServer, closeServert };
+module.exports = { app, runServer, closeServer };
