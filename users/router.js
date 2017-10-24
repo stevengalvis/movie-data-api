@@ -115,7 +115,7 @@ router.post("/", jsonParser, (req, res) => {
     });
 });
 
-router.put("/watchlist", (req, res) => {
+router.put("/watchlist", passport.authenticate("jwt", { session: false }), (req, res) => {
   let user;
   User.findOneAndUpdate({ username: req.user.username }, { $push: { watchList: req.body } }, { new: true })
     .exec()
