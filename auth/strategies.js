@@ -48,4 +48,4 @@ const jwtStrategy = new JwtStrategy(
   }
 );
 
-module.exprts = { basicStrategy, jwtStrategy };
+module.exports = { basicStrategy, jwtStrategy };

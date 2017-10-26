@@ -1,11 +1,10 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const passport = require("passport");
 
 const { User } = require("./models");
 
 const router = express.Router();
-
+const passport = require("passport");
 const jsonParser = bodyParser.json();
 
 // register a new user

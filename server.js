@@ -6,7 +6,7 @@ const morgan = require("morgan");
 
 const { router: usersRouter } = require("./users");
 const { router: authRouter, basicStrategy, jwtStrategy } = require("./auth/index");
-
+console.log(basicStrategy);
 mongoose.Promise = global.Promise;
 
 const app = express();
@@ -25,12 +25,11 @@ app.use(
 
 app.use(bodyParser.json());
 
+app.use("/api/auth/", authRouter);
+app.use("/api/users/", usersRouter);
 app.use(passport.initialize());
 passport.use(basicStrategy);
 passport.use(jwtStrategy);
-
-app.use("/api/auth/", authRouter);
-app.use("/api/users/", usersRouter);
 
 app.get("/api/*", (req, res) => {
   res.json({ ok: true });
