@@ -4,16 +4,7 @@ const bodyParser = require("body-parser");
 const passport = require("passport");
 const morgan = require("morgan");
 
-const { router: usersRouter } = require("./users");
-const { router: authRouter, basicStrategy, jwtStrategy } = require("./auth/index");
-console.log(basicStrategy);
-mongoose.Promise = global.Promise;
-
 const app = express();
-
-//Logging
-app.use(morgan("common"));
-
 const cors = require("cors");
 const { CLIENT_ORIGIN, PORT, DATABASE_URL } = require("./config");
 
@@ -22,6 +13,14 @@ app.use(
     origin: CLIENT_ORIGIN
   })
 );
+
+const { router: usersRouter } = require("./users");
+const { router: authRouter, basicStrategy, jwtStrategy } = require("./auth/index");
+console.log(basicStrategy);
+mongoose.Promise = global.Promise;
+
+//Logging
+app.use(morgan("common"));
 
 app.use(bodyParser.json());
 
