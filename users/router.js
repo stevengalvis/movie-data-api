@@ -48,18 +48,18 @@ router.post("/", jsonParser, (req, res) => {
     });
 });
 
-router.put("/watchlist", passport.authenticate("jwt", { session: false }), (req, res) => {
+router.post("/watchlist", passport.authenticate("jwt", { session: false }), (req, res) => {
   let user;
   User.findOneAndUpdate({ username: req.user.username }, { $push: { watchList: req.body } }, { new: true })
     .exec()
     .then(_user => {
       user = _user;
-      res.status(201).json(user.apiRepr());
+      res.status(201).json(user.apiWatchList());
     })
     .catch(err => res.status(500).json({ message: "Something went wrong" }));
 });
 
-router.get("/watchlist", (req, res) => {
+router.get("/watchlist", passport.authenticate("jwt", { session: false }), (req, res) => {
   let user;
   User.findOne({ username: req.user.username })
     .exec()
@@ -70,9 +70,9 @@ router.get("/watchlist", (req, res) => {
     .catch(err => res.status(500).json({ message: "could not get watch list" }));
 });
 
-router.post("/watchlist", (req, res) => {
+router.put("/watchlist", passport.authenticate("jwt", { session: false }), (req, res) => {
   let user;
-  User.findOneAndUpdate({ username: req.user.username }, { $pull: { watchList: req.body } }, { new: true })
+  User.findOneAndUpdate({ username: req.user.username }, { $pull: { watchList: { id: req.body.id } } }, { new: true })
     .exec()
     .then(_user => {
       user = _user;
